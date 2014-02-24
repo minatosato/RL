@@ -106,10 +106,9 @@ class Map:
                     pygame.draw.rect(screen,CS_COLOR,Rect(x*CS,y*CS,CS,CS))
                     if self.field[y][x].get_max_q_action().q != 0:
                         val = self.field[y][x].get_max_q_action().q/100.0
-                        if val > 1:
-                            val = 1
+                        # if val > 1:
+                        #     val = 1
                         val *= 255.0
-                        #print val
                         color = (255,255-val,255-val)
                         pygame.draw.rect(screen,color,Rect(x*CS,y*CS,CS,CS))
                         num = self.field[y][x].get_max_q_action().d
