@@ -4,9 +4,15 @@
 import const
 
 class Action:
-    def __init__(self, possibility):
+    def __init__(self, direction, possibility):
         self.q_value = 0.00
         self.possibility = possibility
+        self.direction = direction
+    def getd(self):
+        return self.direction
+    def setd(self, value):
+        self.direction = value
+    d = property(getd, setd)
     def getq(self):
         return self.q_value
     def setq(self, value):
@@ -17,8 +23,9 @@ class Action:
     def setp(self, value):
         self.possibility = value
     p = property(getp, setp)
-    def set_possibility(self,possibility):
+    def set_possibility(self,direction,possibility):
         self.possibility = possibility
+        self.direction = direction
     def update_q_value(self,state):
         alpha = const.LEARNING_RATE
         gamma = const.DISCOUNT_RATE

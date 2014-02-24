@@ -83,7 +83,6 @@ class Map:
                         print '       %05.2f' %self.field[y][x].action[1].q
                         print '      %05.2f' %self.field[y][x].action[3].q
                         print '-----------------------------------'
-                        print self.field[y][x].get_max_q_action_num()
     #init
     def clear(self):
         self.generation = 0
@@ -113,7 +112,7 @@ class Map:
                         #print val
                         color = (255,255-val,255-val)
                         pygame.draw.rect(screen,color,Rect(x*CS,y*CS,CS,CS))
-                        num = self.field[y][x].get_max_q_action_num()
+                        num = self.field[y][x].get_max_q_action().d
                         direction = u""
                         if num==UP:
                             direction = u"↑"
@@ -133,13 +132,11 @@ class Map:
 
     def step(self):
         self.action = self.state.action_select()
-        self.action_num = self.state.action_select_num()
-        self.agent.move(self.action,self.action_num)
+        self.agent.move(self.action)
         self.state = self.field[self.agent.y][self.agent.x]
         self.action.update_q_value(self.state)
         self.agentx = self.agent.x
         self.agenty = self.agent.y
-        #print "debug"
         if self.state.k == 1:
             self.agent.move_start()
             self.state = self.field[self.agent.y][self.agent.x]

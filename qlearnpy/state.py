@@ -9,7 +9,7 @@ class State:
     def __init__(self,kind):
         self.reward = 0
         self.kind = kind
-        self.action = [act.Action(False),act.Action(False),act.Action(False),act.Action(False)]
+        self.action = [act.Action(0,False),act.Action(1,False),act.Action(2,False),act.Action(3,False)]
 
     def getr(self):
         return self.reward
@@ -24,38 +24,25 @@ class State:
     k = property(getk, setk)
 
     def set_action(self,direction,possibility):
-        self.action[direction].set_possibility(possibility) #act.Action(possibility)
+        self.action[direction].set_possibility(direction,possibility)
 
     def get_max_q_action(self):
         m = max(xrange(len(self.action)), key=lambda i: self.action[i].q)
         if self.action[0].q == 0.00 and self.action[1].q == 0.00 and self.action[2].q == 0.00 and self.action[3].q == 0.00:
             m = random.randint(0,3)
-#            while True:
-#                m = random.randint(0,3)
-#                if self.action[m].p==True:
-#                    break
+           # while True:
+           #     m = random.randint(0,3)
+           #     if self.action[m].p==True:
+           #         break
         return self.action[m]
-    def get_max_q_action_num(self):
-        m = max(xrange(len(self.action)), key=lambda i: self.action[i].q)
-        if self.action[0].q == 0.00 and self.action[1].q == 0.00 and self.action[2].q == 0.00 and self.action[3].q == 0.00:
-            m = random.randint(0,3)
-#            while True:
-#                m = random.randint(0,3)
-#                if self.action[m].p!=False:
-#                    break
-        return m
     def action_select(self):
         choosen = 0
         if random.random() > const.EPSILON_RATE:
-            choosen = self.get_max_q_action_num()
-            self.direction = choosen
+            choosen = self.get_max_q_action().d
         else:
             choosen = random.randint(0,3)
             # while True:
             #     choosen = random.randint(0,3)
             #     if self.action[choosen].p!=False:
             #         break
-            self.direction = choosen
         return self.action[choosen]
-    def action_select_num(self):
-        return self.direction

@@ -19,8 +19,9 @@ class Agent:
         self.current_y = value
     y = property(gety, sety)
 
-    def move(self,action,direction):
+    def move(self,action):
         poss = action.p
+        direction = action.d
         if direction==0 and poss==True:
             self.current_x -= 1
         elif direction==1 and poss==True:
