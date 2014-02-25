@@ -32,10 +32,8 @@ public class Program implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         a = s.actionSelect();
-        
-        a_num = s.actionSelectNumber();
-        
-        agent.move(a, a_num);
+
+        agent.move(a);
         
         s = maze.selectState(agent.getCurrentX(), agent.getCurrentY());
         
@@ -46,7 +44,9 @@ public class Program implements ActionListener
         maze.showDirection();
         
         if(s.getKind() == 1)
+        {
             agent.move();
+        }
         
     }
 

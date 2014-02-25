@@ -8,7 +8,6 @@ public class State extends JLabel
     private Action[] action = new Action[4];
     private int reward;
     private int kind;
-    private int direction;
     
     public State(int kind)
     {
@@ -33,7 +32,7 @@ public class State extends JLabel
     
     public void setAction(int direction, boolean possiblility)
     {
-        action[direction] = new Action(possiblility);
+        action[direction] = new Action(direction,possiblility);
     }
     
     public Action getMaxQvalueAction()
@@ -47,29 +46,13 @@ public class State extends JLabel
                 max = i;
             }
         }
-        return action[max];
-    }
-    
-    public int getMaxQvalueActionNumber()
-    {
-        int max = 0;
-        
-        for(int i = 1; i < 4; i++)
-        {
-            if(action[i].getQvalue() > action[max].getQvalue())
-            {
-                max = i;
-            }
-        }
-        
-        if(action[0].getQvalue() == 0 && action[1].getQvalue() == 0 && action[2].getQvalue() == 0 && action[3].getQvalue() == 0)
+        if(this.action[0].getQvalue()==0.00 && this.action[1].getQvalue()==0.00 && this.action[2].getQvalue()==0.00 && this.action[3].getQvalue()==0.00)
         {
             max = (new Random()).nextInt(4);
         }
-        
-        return max;
+        return action[max];
     }
-    
+
     public Action actionSelect()
     {
         int choosen = 0;
@@ -78,23 +61,12 @@ public class State extends JLabel
         
         if(random > Parameter.EPSILON_RATE)
         {
-            //greedy
-            choosen = this.getMaxQvalueActionNumber();
-            
-            this.direction = choosen;
+            choosen = this.getMaxQvalueAction().getDirection();
         }
         else
         {
-            //random
             choosen = (new Random()).nextInt(4);
-            
-            this.direction = choosen;
         }
         return action[choosen];
-    }
-    
-    public int actionSelectNumber()
-    {
-        return this.direction;
     }
 }

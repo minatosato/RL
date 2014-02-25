@@ -162,7 +162,7 @@ public class Map extends JFrame
                         state[i][j].setText("");
                         state[i][j].setBackground(Color.WHITE);
                     }
-                    else if(state[i][j].getMaxQvalueActionNumber() == 0)
+                    else if(state[i][j].getMaxQvalueAction().getDirection() == 0)
                     {
                         //System.out.print("← ");
                         state[i][j].setText(" ←");
@@ -173,7 +173,7 @@ public class Map extends JFrame
                         float v = 1;
                         state[i][j].setBackground(new Color(Color.HSBtoRGB(h,s,v)));
                     }
-                    else if(state[i][j].getMaxQvalueActionNumber() == 1)
+                    else if(state[i][j].getMaxQvalueAction().getDirection() == 1)
                     {
                         //System.out.print("→ ");
                         state[i][j].setText(" →");
@@ -184,7 +184,7 @@ public class Map extends JFrame
                         float v = 1;
                         state[i][j].setBackground(new Color(Color.HSBtoRGB(h,s,v)));
                     }
-                    else if(state[i][j].getMaxQvalueActionNumber() == 2)
+                    else if(state[i][j].getMaxQvalueAction().getDirection() == 2)
                     {
                         //System.out.print("↑ ");
                         state[i][j].setText(" ↑");
@@ -195,7 +195,7 @@ public class Map extends JFrame
                         float v = 1;
                         state[i][j].setBackground(new Color(Color.HSBtoRGB(h,s,v)));
                     }
-                    else if(state[i][j].getMaxQvalueActionNumber() == 3)
+                    else if(state[i][j].getMaxQvalueAction().getDirection() == 3)
                     {
                         //System.out.print("↓ ");
                         state[i][j].setText(" ↓");
@@ -232,9 +232,9 @@ public class Map extends JFrame
                     state[i][j].setText(" S");
                 }
             }
-            System.out.println();
+            // System.out.println();
         }
-        System.out.println();
+        // System.out.println();
     }
 }
 

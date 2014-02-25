@@ -22,9 +22,10 @@ public class Agent
         return this.currentY;
     }
     
-    public void move(Action action, int direction)
+    public void move(Action action)
     {
         boolean possibility = action.getPossibility();
+        int direction = action.getDirection();
         
         if(direction == 0 && possibility == true)
         {

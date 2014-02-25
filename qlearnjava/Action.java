@@ -4,11 +4,13 @@ public class Action
 {
     private double Qvalue;
     private boolean possibility;
+    private int direction;
     
-    public Action(boolean possibility)
+    public Action(int direction,boolean possibility)
     {
         this.Qvalue = 0;
         this.possibility = possibility;
+        this.direction = direction;
     }
     
     public double getQvalue()
@@ -24,6 +26,11 @@ public class Action
     public void setPossibility(boolean possibility)
     {
         this.possibility = possibility;
+    }
+
+    public int getDirection()
+    {
+        return this.direction;
     }
     
     public void updateQvalue(State state)
