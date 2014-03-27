@@ -30,10 +30,10 @@ class State:
         m = max(xrange(len(self.action)), key=lambda i: self.action[i].q)
         if self.action[0].q == 0.00 and self.action[1].q == 0.00 and self.action[2].q == 0.00 and self.action[3].q == 0.00:
             m = random.randint(0,3)
-           # while True:
-           #     m = random.randint(0,3)
-           #     if self.action[m].p==True:
-           #         break
+            # while True:
+            #     m = random.randint(0,3)
+            #     if self.action[m].p!=False:
+            #         break
         return self.action[m]
     def action_select(self):
         choosen = 0

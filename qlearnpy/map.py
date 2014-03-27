@@ -38,7 +38,6 @@ class Map:
         self.agentx = self.agent.x
         self.agenty = self.agent.y
         self.run = False
-        self.learn = False
         self.cursor = [NUM_COL/2, NUM_ROW/2]
         self.clear()
         self.set_all_possibility()
@@ -61,8 +60,6 @@ class Map:
                         self.run = not self.run
                     elif event.key==K_n:
                         self.step()
-                    elif event.key==K_l:
-                        self.learn = not self.learn
                     elif event.key == K_LEFT:
                         self.cursor[0] -= 1
                         if self.cursor[0] < 0: self.cursor[0] = 0
@@ -141,20 +138,19 @@ class Map:
             self.state = self.field[self.agent.y][self.agent.x]
 
     def update(self):
-        if self.run == True and self.learn == False:
-            self.step()
-        elif self.learn == True:
+        if self.run == True:
             self.step()
 
     def set_possibility(self,y,x):
-        if self.field[y][x].k == ROAD or self.field[y][x].k == START or self.field[y][x].k == GOAL:
-            if self.field[y][x-1].k==ROAD or self.field[y][x-1].k==GOAL or self.field[y][x-1].k==START:
+        N_WALL = [ROAD,START,GOAL]
+        if self.field[y][x].k in N_WALL:
+            if self.field[y][x-1].k in N_WALL:
                 self.field[y][x].set_action(LEFT,True)
-            if self.field[y][x+1].k==ROAD or self.field[y][x+1].k==GOAL or self.field[y][x+1].k==START:
+            if self.field[y][x+1].k in N_WALL:
                 self.field[y][x].set_action(RIGHT,True)
-            if self.field[y-1][x].k==ROAD or self.field[y-1][x].k==GOAL or self.field[y-1][x].k==START:
+            if self.field[y-1][x].k in N_WALL:
                 self.field[y][x].set_action(UP,True)
-            if self.field[y+1][x].k==ROAD or self.field[y+1][x].k==GOAL or self.field[y+1][x].k==START:
+            if self.field[y+1][x].k in N_WALL:
                 self.field[y][x].set_action(DOWN,True)
 
     def set_all_possibility(self):
