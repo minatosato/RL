@@ -2,14 +2,14 @@
 # -*- coding:utf-8 -+-
 
 import const
-import action as act
+from action import *
 import random
 
 class State:
     def __init__(self,kind):
         self.reward = 0
         self.kind = kind
-        self.action = [act.Action(0,False),act.Action(1,False),act.Action(2,False),act.Action(3,False)]
+        self.action = [Action(0,False),Action(1,False),Action(2,False),Action(3,False)]
 
     def getr(self):
         return self.reward

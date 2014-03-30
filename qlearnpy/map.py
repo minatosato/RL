@@ -6,9 +6,8 @@ import pygame
 from pygame.locals import *
 import random
 import sys
-import state
-import agent
-import action
+from state import *
+from agent import *
 
 SCR_RECT = Rect(0,0,const.SCR_X,const.SCR_Y)
 CS = const.CS
@@ -23,6 +22,7 @@ LEFT = 0
 RIGHT = 1
 UP = 2
 DOWN = 3
+DIREC = [LEFT,RIGHT,UP,DOWN]
 
 
 class Map:
@@ -31,8 +31,8 @@ class Map:
         self.screen = pygame.display.set_mode(SCR_RECT.size)
         pygame.display.set_caption(u"Q-Learning")
         self.font = pygame.font.SysFont('Ricty',42)
-        self.field = [[state.State(GOAL)for x in range(NUM_COL)] for y in range(NUM_ROW)]
-        self.agent = agent.Agent()
+        self.field = [[State(GOAL)for x in range(NUM_COL)] for y in range(NUM_ROW)]
+        self.agent = Agent()
         self.state = self.field[self.agent.y][self.agent.x]
         self.generation = 0
         self.run = False
@@ -54,8 +54,6 @@ class Map:
                     if event.key==K_ESCAPE:
                         pygame.quit()
                         sys.exit()
-                    elif event.key==K_q:
-                        pygame.quit()
                     elif event.key==K_s:
                         self.run = not self.run
                     elif event.key==K_n:
@@ -83,11 +81,11 @@ class Map:
     #init
     def clear(self):
         self.generation = 0
-        self.agent = agent.Agent()
+        self.agent = Agent()
         self.state = self.field[self.agent.y][self.agent.x]        
         for y in range(NUM_ROW):
             for x in range(NUM_COL):
-                self.field[y][x] = state.State(const.FIELD[y][x])
+                self.field[y][x] = State(const.FIELD[y][x])
                 if const.FIELD[y][x]==GOAL:
                     self.field[y][x].r = 100
 
