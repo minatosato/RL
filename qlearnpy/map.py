@@ -35,8 +35,6 @@ class Map:
         self.agent = agent.Agent()
         self.state = self.field[self.agent.y][self.agent.x]
         self.generation = 0
-        self.agentx = self.agent.x
-        self.agenty = self.agent.y
         self.run = False
         self.cursor = [NUM_COL/2, NUM_ROW/2]
         self.clear()
@@ -44,7 +42,7 @@ class Map:
         clock = pygame.time.Clock()
         self.draw(self.screen)
         while True:
-            #clock.tick(100)
+            # clock.tick(100)
             self.update()
             self.draw(self.screen)
             pygame.display.update()
@@ -56,6 +54,8 @@ class Map:
                     if event.key==K_ESCAPE:
                         pygame.quit()
                         sys.exit()
+                    elif event.key==K_q:
+                        pygame.quit()
                     elif event.key==K_s:
                         self.run = not self.run
                     elif event.key==K_n:
@@ -84,8 +84,6 @@ class Map:
     def clear(self):
         self.generation = 0
         self.agent = agent.Agent()
-        self.agentx = self.agent.x
-        self.agenty = self.agent.y
         self.state = self.field[self.agent.y][self.agent.x]        
         for y in range(NUM_ROW):
             for x in range(NUM_COL):
@@ -121,7 +119,7 @@ class Map:
                         screen.blit(self.font.render(direction, True, (0,0,0)), (x*CS,y*CS))
                 elif self.field[y][x].k == GOAL:
                     pygame.draw.rect(screen,(100,255,255),Rect(x*CS,y*CS,CS,CS))
-                if y == self.agenty and x == self.agentx:
+                if y == self.agent.y and x == self.agent.x:
                     pygame.draw.rect(screen,(0,0,255),Rect(x*CS,y*CS,CS,CS))
                 pygame.draw.rect(screen,(50,50,50),Rect(x*CS,y*CS,CS,CS),1)
         pygame.draw.rect(screen, (0,255,0), Rect(self.cursor[0]*CS,self.cursor[1]*CS,CS,CS), 5)
@@ -131,8 +129,6 @@ class Map:
         self.agent.move(self.action)
         self.state = self.field[self.agent.y][self.agent.x]
         self.action.update_q_value(self.state)
-        self.agentx = self.agent.x
-        self.agenty = self.agent.y
         if self.state.k == 1:
             self.agent.move_start()
             self.state = self.field[self.agent.y][self.agent.x]
