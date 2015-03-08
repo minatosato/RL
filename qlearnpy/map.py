@@ -30,7 +30,7 @@ class Map:
         pygame.init()
         self.screen = pygame.display.set_mode(SCR_RECT.size)
         pygame.display.set_caption(u"Q-Learning")
-        self.font = pygame.font.SysFont('Ricty',42)
+        self.font = pygame.font.SysFont("timesnewroman",42)
         self.field = [[State(GOAL)for x in range(NUM_COL)] for y in range(NUM_ROW)]
         self.agent = Agent()
         self.state = self.field[self.agent.y][self.agent.x]
